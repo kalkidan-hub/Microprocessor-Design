@@ -31,32 +31,39 @@ module kill_go
                     if(go) state_reg <= active;
 
                 active:
+                    begin
+                    cn = cn + 1;
                     if(kill) state_reg <= abort;
                     else if(cn == 7'd100 && ~kill) state_reg <= finish;
+                    end
+                    
                 finish:
-                    state_reg <= idle;              
+                begin
+                    state_reg <= idle; 
+                    done <= 1'b1;  
+                end           
                 abort:
                     if(~kill) state_reg <= idle;
                 default: state_reg <= idle;
             endcase
         end
 
-    // count
+    // // count
    
-        if(state_reg == active) begin
-            cn = cn + 1;
-        end
-        else begin
-            cn <= 7'd0;
-        end
-    // done
+    //     if(state_reg == active) begin
+            
+    //     end
+    //     else begin
+    //         cn <= 7'd0;
+    //     end
+    // // done
     
-        if(state_reg == finish)begin
-            done <= 1'b1;
-        end
-        else begin
-            done <= 1'b0;
-        end
+    //     if(state_reg == finish)begin
+           
+    //     end
+    //     else begin
+    //         done <= 1'b0;
+    //     end
     end
 
 endmodule
