@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 // the counter program,, uses start and stop signal to operate -count.
-// since we're using 4bit register, it resets to 0 when the limit reaches, which is 15
-// the output will be the signal to a count register, and the stop signal
+// since we're using 16bit register, it resets to 0 when the limit reaches, which is 5'h10000
+// the output will be the value of a count register.
 //////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -16,37 +16,7 @@ module SRCounter
     reg [3:0] count;
     reg stop_d1;
 
-    /*
-    // SR flop
-    always @(posedge clk or posedge reset)
-    begin
-       if(reset | stop)begin
-        cn_enable <= 1'b0;
-       end
-       else if(start)begin
-        cn_enable <= 1'b1;
-       end
-
-    // count
-    
-        if (reset | count == 4'hF)begin
-            count <= 4'h0;
-        end
-        else if(cn_enable)begin
-            count = count + 1;
-        end
    
-    // stop
-    
-        if(reset | stop)begin
-            stop_d1 <= 1'b1;
-        end
-        else begin
-            stop_d1 <= 1'b0;
-        end
-
-    end
-    */
     always @(posedge clk or posedge reset)
     begin
         if(reset)begin
@@ -61,7 +31,7 @@ module SRCounter
             else if(stop)begin
                 stop_d1 <= stop;
             end
-            else if(cn_enable && count == 4'hF) begin
+            else if(cn_enable && count == 5'h10000) begin
                 count <= 1'b0;
             end
             else if(cn_enable)begin
