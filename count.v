@@ -10,10 +10,10 @@ module SRCounter
         start, stop,reset, clk, count
     );
     input start, stop, clk, reset;
-    output [3:0] count;
+    output [15:0] count;
 
     reg cn_enable;
-    reg [3:0] count;
+    reg [15:0] count;
     reg stop_d1;
 
    
@@ -21,7 +21,7 @@ module SRCounter
     begin
         if(reset)begin
             cn_enable <= 1'b0;
-            count <= 4'h0;
+            count <= 16'h0;
             stop_d1 <=stop;
         end 
         else begin
@@ -31,7 +31,7 @@ module SRCounter
             else if(stop)begin
                 stop_d1 <= stop;
             end
-            else if(cn_enable && count == 4'h1111) begin
+            else if(cn_enable && count == 16'h1111) begin
                 count <= 1'b0;
             end
             else if(cn_enable)begin
