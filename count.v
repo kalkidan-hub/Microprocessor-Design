@@ -31,7 +31,7 @@ module SRCounter
             else if(stop)begin
                 stop_d1 <= stop;
             end
-            else if(cn_enable && count == 5'h10000) begin
+            else if(cn_enable && count == 4'h1111) begin
                 count <= 1'b0;
             end
             else if(cn_enable)begin
